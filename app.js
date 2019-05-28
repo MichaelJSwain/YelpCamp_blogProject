@@ -14,7 +14,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 
+// ========================================
+// R O U T E S
+// ========================================
 
+//root route
+app.get('/', function(req, res) {
+    res.send('root route');
+})
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log('yelpcamp blog project server started!');    
