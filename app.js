@@ -32,7 +32,8 @@ app.get("/campgrounds/new", function(req, res) {
 });
 //Create route
 app.post("/campgrounds", function(req, res) {
-    res.render("campgrounds");
+    let campground = req.body.campground;
+    console.log(campground);
 });
 //Show route
 app.get("/campgrounds/:id", function(req, res) {
