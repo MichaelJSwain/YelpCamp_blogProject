@@ -14,6 +14,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 
+// SCHEMA / MODEL SETUP
+var campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String,
+    info: String,
+    created: {type: Date, default: Date.now()}
+});
+
+var Campground = mongoose.model("campground", campgroundSchema);
+
+
 // ========================================
 // R O U T E S
 // ========================================
@@ -24,7 +35,13 @@ app.get('/', function(req, res) {
 });
 //index route
 app.get("/campgrounds", function(req, res) {
-    res.render('campgrounds');    
+    Campground.find({}, function(err, campgrounds) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("campgrounds", {campgrounds: campgrounds});
+        }
+    })  
 });
 //New route
 app.get("/campgrounds/new", function(req, res) {
@@ -32,8 +49,13 @@ app.get("/campgrounds/new", function(req, res) {
 });
 //Create route
 app.post("/campgrounds", function(req, res) {
-    let campground = req.body.campground;
-    console.log(campground);
+    Campground.create(req.body.campground, function(err, createdCampground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds");
+        }
+    })
 });
 //Show route
 app.get("/campgrounds/:id", function(req, res) {
