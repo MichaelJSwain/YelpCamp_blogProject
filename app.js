@@ -20,8 +20,36 @@ app.use(methodOverride('_method'));
 
 //root route
 app.get('/', function(req, res) {
-    res.send('root route');
-})
+    res.render("home");
+});
+//index route
+app.get("/campgrounds", function(req, res) {
+    res.render('campgrounds');    
+});
+//New route
+app.get("/campgrounds/new", function(req, res) {
+    res.render("new"); 
+});
+//Create route
+app.post("/campgrounds", function(req, res) {
+    res.render("campgrounds");
+});
+//Show route
+app.get("/campgrounds/:id", function(req, res) {
+    res.render("show");
+});
+//Edit route
+app.get("/campgrounds/:id/edit", function(req, res) {
+    res.render("edit"); 
+});
+//Update route
+app.put("/campgrounds/:id", function(req, res) {
+    res.redirect("/campgrounds"); 
+});
+//Delete route
+app.delete("/campgrounds/:id", function(req, res) {
+    res.redirect("/campgrounds");
+});
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log('yelpcamp blog project server started!');    
