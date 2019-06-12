@@ -69,7 +69,13 @@ app.get("/campgrounds/:id", function(req, res) {
 });
 //Edit route
 app.get("/campgrounds/:id/edit", function(req, res) {
-    res.render("edit"); 
+    Campground.findById(req.params.id, function(err, campground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit', {campground: campground});
+        }
+    })
 });
 //Update route
 app.put("/campgrounds/:id", function(req, res) {

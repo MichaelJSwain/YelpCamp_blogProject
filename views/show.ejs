@@ -4,6 +4,7 @@
     <h1><%= campground.name %></h1>
     <img src="<%= campground.image%>">;
     <p><%= campground.info %></p>
+    <a href="/campgrounds/<%= campground.id %>/edit">Edit</a>
 </div>
 
 <% include ./partials/footer %>
