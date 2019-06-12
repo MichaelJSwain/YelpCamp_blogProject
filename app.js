@@ -59,7 +59,13 @@ app.post("/campgrounds", function(req, res) {
 });
 //Show route
 app.get("/campgrounds/:id", function(req, res) {
-    res.render("show");
+    Campground.findById(req.params.id, function(err, foundCampground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('show', {campground: foundCampground});
+        }
+    });
 });
 //Edit route
 app.get("/campgrounds/:id/edit", function(req, res) {
