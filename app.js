@@ -13,6 +13,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
+mongoose.set('useFindAndModify', false);
 
 // SCHEMA / MODEL SETUP
 var campgroundSchema = new mongoose.Schema({
@@ -79,7 +80,13 @@ app.get("/campgrounds/:id/edit", function(req, res) {
 });
 //Update route
 app.put("/campgrounds/:id", function(req, res) {
-    res.redirect("/campgrounds"); 
+    Campground.findOneAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+        if (err) {
+            console.log(err) 
+        } else {
+            res.redirect('/campgrounds');
+        }
+    })
 });
 //Delete route
 app.delete("/campgrounds/:id", function(req, res) {
